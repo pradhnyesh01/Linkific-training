@@ -18,7 +18,7 @@ while True:
             print("Your list is empty")
         else:
             for index, task in enumerate(todo_list, start=1):
-                print(f"{index} {task}")
+                print(f"{index}. {task}")
     
     elif choice == '2':
         new_task = input("Task to be added: ")
