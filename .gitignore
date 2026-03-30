@@ -1,1 +1,18 @@
 Day-6/data-cleaning.csv
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints
+
+# Data files
+*.csv
+*.xlsx
+
+# Virtual env
+venv/
