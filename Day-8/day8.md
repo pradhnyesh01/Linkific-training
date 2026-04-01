@@ -40,10 +40,10 @@ The models were evaluated using:
 
 | Model               | CV Accuracy |
 | ------------------- | ----------- |
-| Logistic Regression | 0.7935      |
-| Decision Tree       | 0.7767      |
-| Random Forest       | **0.8137**  |
-| KNN                 | 0.6836      |
+| Logistic Regression | 0.7857      |
+| Decision Tree       | 0.7722      |
+| Random Forest       | **0.8081**  |
+| KNN                 | 0.8115      |
 
 ---
 
@@ -63,7 +63,7 @@ The models were evaluated using:
 
 3. **Stable Performance**
 
-   * Highest cross-validation accuracy (0.8137)
+   * Second Highest cross-validation accuracy (0.8081)
    * Balanced Precision, Recall, and F1 Score
 
 ---
