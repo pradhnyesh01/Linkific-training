@@ -4,20 +4,20 @@ This repository contains a collection of Jupyter notebooks exploring various Nat
 
 ## Notebooks Overview
 
-### 1. [huggingface-practice.ipynb](cite: 1)
+### 1. [huggingface-practice.ipynb]
 An introductory guide to utilizing the **Hugging Face Transformers** library.
 * **Key Features**:
     * **Sentiment Analysis**: Uses the default `pipeline` for text classification.
     * **Summarization**: Implements the `sshleifer/distilbart-cnn-12-6` model to condense text.
     * **Zero-Shot Classification**: Categorizes text into arbitrary labels without specific training.
 
-### 2. [model-practice.ipynb](cite: 2)
+### 2. [model-practice.ipynb]
 Focuses on evaluating the performance of a pre-trained transformer model on a standardized dataset.
 * **Model**: `distilbert-base-uncased-finetuned-sst-2-english`.
 * **Dataset**: IMDB Movie Reviews (subset of 10,000 reviews for testing).
 * **Process**: Loads the dataset, applies the Hugging Face pipeline with truncation enabled, and calculates comprehensive classification metrics.
 
-### 3. [nlp-basics.ipynb](cite: 3)
+### 3. [nlp-basics.ipynb]
 Demonstrates the traditional "Bag-of-Words" approach to NLP.
 * **Preprocessing**: Includes HTML tag removal, special character filtering, tokenization, stopword removal, and lemmatization.
 * **Vectorization**: Uses `TfidfVectorizer` with a maximum of 5,000 features.
