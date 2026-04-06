@@ -7,10 +7,6 @@ pip install flask flask-cors
 python app.py
 ```
 
-## Base URL
-
-http://127.0.0.1:5000/
-
 ## Endpoints
 
 ### GET /items
@@ -40,7 +36,7 @@ Updates an item, where all the fields need to be filled
 
 Deletes an item
 
-### DELETE /items/<id>
+### PATCH /items/<id>
 
 Updates an item, where only field changed needs to be filled
 
