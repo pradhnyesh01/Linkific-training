@@ -1,0 +1,7 @@
+Students Table
+--------------
+id (Primary Key)
+name (varchar)
+age (int)
+course (varchar)
+marks (int)
