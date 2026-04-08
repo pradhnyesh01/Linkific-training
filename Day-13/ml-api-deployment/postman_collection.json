@@ -1,0 +1,239 @@
+{
+  "info": {
+    "_postman_id": "ml-api-deployment-day13",
+    "name": "ML API Deployment – Day 13",
+    "description": "House Price Prediction API with model versioning.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:5000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Train Model",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/train",
+          "host": ["{{base_url}}"],
+          "path": ["train"]
+        },
+        "description": "Train a new model version. Optionally pass `data_path` to override the default Housing.csv. Each call creates a new versioned model (v1, v2, …)."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+              "pm.test(\"Has version field\", () => {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json).to.have.property('version');",
+              "    pm.expect(json).to.have.property('metrics');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "response": [
+        {
+          "name": "Success",
+          "status": "Created",
+          "code": 201,
+          "body": "{\n  \"message\": \"Model trained successfully\",\n  \"version\": \"v1\",\n  \"metrics\": { \"mse\": 1728299885729.06, \"rmse\": 1314648.2, \"r2\": 0.658 },\n  \"trained_at\": \"2026-04-08T10:00:00Z\",\n  \"train_size\": 436,\n  \"test_size\": 109\n}"
+        }
+      ]
+    },
+    {
+      "name": "Predict – Valid Input",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"area\": 7420,\n  \"bedrooms\": 4,\n  \"bathrooms\": 2,\n  \"stories\": 3,\n  \"parking\": 2,\n  \"mainroad\": \"yes\",\n  \"guestroom\": \"no\",\n  \"basement\": \"no\",\n  \"hotwaterheating\": \"no\",\n  \"airconditioning\": \"yes\",\n  \"prefarea\": \"yes\",\n  \"furnishingstatus\": \"furnished\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/predict",
+          "host": ["{{base_url}}"],
+          "path": ["predict"]
+        },
+        "description": "Predict house price using the latest trained model. Add `\"version\": \"v1\"` to the body to target a specific model version."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Has predicted_price\", () => {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json).to.have.property('predicted_price');",
+              "    pm.expect(json.predicted_price).to.be.a('number');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "response": [
+        {
+          "name": "Success",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"predicted_price\": 12540320.5,\n  \"model_version\": \"v1\",\n  \"response_time_ms\": 4.21\n}"
+        }
+      ]
+    },
+    {
+      "name": "Predict – Specific Version",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"area\": 5000,\n  \"bedrooms\": 3,\n  \"bathrooms\": 1,\n  \"stories\": 2,\n  \"parking\": 1,\n  \"mainroad\": \"yes\",\n  \"guestroom\": \"no\",\n  \"basement\": \"yes\",\n  \"hotwaterheating\": \"no\",\n  \"airconditioning\": \"no\",\n  \"prefarea\": \"no\",\n  \"furnishingstatus\": \"semi-furnished\",\n  \"version\": \"v1\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/predict",
+          "host": ["{{base_url}}"],
+          "path": ["predict"]
+        },
+        "description": "Predict using a specific model version by passing `version` in the body."
+      },
+      "response": []
+    },
+    {
+      "name": "Predict – Validation Error",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"area\": -100,\n  \"bedrooms\": 3,\n  \"bathrooms\": 1,\n  \"stories\": 2,\n  \"parking\": 1,\n  \"mainroad\": \"maybe\",\n  \"guestroom\": \"no\",\n  \"basement\": \"yes\",\n  \"hotwaterheating\": \"no\",\n  \"airconditioning\": \"no\",\n  \"prefarea\": \"no\",\n  \"furnishingstatus\": \"unknown\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/predict",
+          "host": ["{{base_url}}"],
+          "path": ["predict"]
+        },
+        "description": "Demonstrates input validation errors: negative area, invalid yes/no value, invalid furnishingstatus."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 422\", () => pm.response.to.have.status(422));",
+              "pm.test(\"Has details array\", () => {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json).to.have.property('details');",
+              "    pm.expect(json.details).to.be.an('array').that.is.not.empty;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "response": [
+        {
+          "name": "Validation Error",
+          "status": "Unprocessable Entity",
+          "code": 422,
+          "body": "{\n  \"error\": \"Validation failed\",\n  \"details\": [\n    \"'area' must be a non-negative number, got: -100\",\n    \"'mainroad' must be 'yes' or 'no', got: 'maybe'\",\n    \"'furnishingstatus' must be one of ['furnished', 'semi-furnished', 'unfurnished'], got: 'unknown'\"\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Model Info – All Versions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/model-info",
+          "host": ["{{base_url}}"],
+          "path": ["model-info"]
+        },
+        "description": "Returns a list of all trained model versions with their metrics."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Has versions array\", () => {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json).to.have.property('versions');",
+              "    pm.expect(json).to.have.property('latest_version');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "response": [
+        {
+          "name": "Success",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"latest_version\": \"v2\",\n  \"total_versions\": 2,\n  \"versions\": [\n    {\n      \"version\": \"v1\",\n      \"metrics\": { \"mse\": 1728299885729.06, \"rmse\": 1314648.2, \"r2\": 0.658 },\n      \"trained_at\": \"2026-04-08T10:00:00Z\",\n      \"train_size\": 436,\n      \"test_size\": 109\n    },\n    {\n      \"version\": \"v2\",\n      \"metrics\": { \"mse\": 1728299885729.06, \"rmse\": 1314648.2, \"r2\": 0.658 },\n      \"trained_at\": \"2026-04-08T11:00:00Z\",\n      \"train_size\": 436,\n      \"test_size\": 109\n    }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Model Info – Specific Version",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/model-info?version=v1",
+          "host": ["{{base_url}}"],
+          "path": ["model-info"],
+          "query": [{ "key": "version", "value": "v1" }]
+        },
+        "description": "Returns info for a specific model version."
+      },
+      "response": []
+    },
+    {
+      "name": "Model Info – Not Found",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/model-info?version=v99",
+          "host": ["{{base_url}}"],
+          "path": ["model-info"],
+          "query": [{ "key": "version", "value": "v99" }]
+        },
+        "description": "Returns 404 when the requested model version does not exist."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ],
+      "response": []
+    }
+  ]
+}

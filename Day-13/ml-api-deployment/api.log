@@ -1,0 +1,70 @@
+2026-04-08 17:50:29,930 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-08 17:50:29,930 [INFO] [33mPress CTRL+C to quit[0m
+2026-04-08 17:50:29,930 [INFO]  * Restarting with stat
+2026-04-08 17:50:30,570 [WARNING]  * Debugger is active!
+2026-04-08 17:50:30,581 [INFO]  * Debugger PIN: 463-923-329
+2026-04-08 17:50:40,272 [INFO] → POST /train | body: {}
+2026-04-08 17:50:40,299 [INFO] Model trained: v1 | R²=0.6581 RMSE=1314648
+2026-04-08 17:50:40,299 [INFO] ← 201 | 27.27 ms
+2026-04-08 17:50:40,300 [INFO] 127.0.0.1 - - [08/Apr/2026 17:50:40] "[35m[1mPOST /train HTTP/1.1[0m" 201 -
+2026-04-08 17:50:47,033 [INFO] → POST /predict | body: {'area': 7420, 'bedrooms': 4, 'bathrooms': 2, 'stories': 3, 'parking': 2, 'mainroad': 'yes', 'guestroom': 'no', 'basement': 'no', 'hotwaterheating': 'no', 'airconditioning': 'yes', 'prefarea': 'yes', 'furnishingstatus': 'furnished'}
+2026-04-08 17:50:47,040 [INFO] ← 200 | 6.22 ms
+2026-04-08 17:50:47,040 [INFO] 127.0.0.1 - - [08/Apr/2026 17:50:47] "POST /predict HTTP/1.1" 200 -
+2026-04-08 17:50:53,329 [INFO] → POST /predict | body: {'area': -100, 'bedrooms': 3, 'bathrooms': 1, 'stories': 2, 'parking': 1, 'mainroad': 'maybe', 'guestroom': 'no', 'basement': 'yes', 'hotwaterheating': 'no', 'airconditioning': 'no', 'prefarea': 'no', 'furnishingstatus': 'unknown'}
+2026-04-08 17:50:53,329 [INFO] ← 422 | 0.32 ms
+2026-04-08 17:50:53,329 [INFO] 127.0.0.1 - - [08/Apr/2026 17:50:53] "[31m[1mPOST /predict HTTP/1.1[0m" 422 -
+2026-04-08 17:51:00,891 [INFO] → GET /model-info | body: None
+2026-04-08 17:51:00,891 [INFO] ← 200 | 0.47 ms
+2026-04-08 17:51:00,892 [INFO] 127.0.0.1 - - [08/Apr/2026 17:51:00] "GET /model-info HTTP/1.1" 200 -
+2026-04-08 17:51:00,933 [INFO] → POST /train | body: {}
+2026-04-08 17:51:00,940 [INFO] Model trained: v2 | R²=0.6581 RMSE=1314648
+2026-04-08 17:51:00,940 [INFO] ← 201 | 6.70 ms
+2026-04-08 17:51:00,940 [INFO] 127.0.0.1 - - [08/Apr/2026 17:51:00] "[35m[1mPOST /train HTTP/1.1[0m" 201 -
+2026-04-08 17:51:06,569 [INFO] → POST /predict | body: {'area': 7420, 'bedrooms': 4, 'bathrooms': 2, 'stories': 3, 'parking': 2, 'mainroad': 'yes', 'guestroom': 'no', 'basement': 'no', 'hotwaterheating': 'no', 'airconditioning': 'yes', 'prefarea': 'yes', 'furnishingstatus': 'furnished', 'version': 'v1'}
+2026-04-08 17:51:06,572 [INFO] ← 200 | 3.82 ms
+2026-04-08 17:51:06,573 [INFO] 127.0.0.1 - - [08/Apr/2026 17:51:06] "POST /predict HTTP/1.1" 200 -
+2026-04-08 17:51:10,364 [INFO] → GET /model-info | body: None
+2026-04-08 17:51:10,364 [INFO] ← 404 | 0.36 ms
+2026-04-08 17:51:10,365 [INFO] 127.0.0.1 - - [08/Apr/2026 17:51:10] "[33mGET /model-info?version=v99 HTTP/1.1[0m" 404 -
+2026-04-08 17:51:10,423 [INFO] → GET /model-info | body: None
+2026-04-08 17:51:10,423 [INFO] ← 200 | 0.22 ms
+2026-04-08 17:51:10,423 [INFO] 127.0.0.1 - - [08/Apr/2026 17:51:10] "GET /model-info?version=v2 HTTP/1.1" 200 -
+2026-04-08 18:11:27,032 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-04-08 18:11:27,032 [INFO] [33mPress CTRL+C to quit[0m
+2026-04-08 18:11:27,033 [INFO]  * Restarting with stat
+2026-04-08 18:11:27,653 [WARNING]  * Debugger is active!
+2026-04-08 18:11:27,658 [INFO]  * Debugger PIN: 784-130-694
+2026-04-08 18:11:38,883 [INFO] → GET / | body: None
+2026-04-08 18:11:38,883 [INFO] ← 404 | 0.28 ms
+2026-04-08 18:11:38,883 [INFO] 127.0.0.1 - - [08/Apr/2026 18:11:38] "[33mGET / HTTP/1.1[0m" 404 -
+2026-04-08 18:11:39,219 [INFO] → GET /favicon.ico | body: None
+2026-04-08 18:11:39,220 [INFO] ← 404 | 0.66 ms
+2026-04-08 18:11:39,220 [INFO] 127.0.0.1 - - [08/Apr/2026 18:11:39] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-04-08 18:18:14,234 [INFO] → POST /train | body: {}
+2026-04-08 18:18:14,269 [INFO] Model trained: v3 | R²=0.6581 RMSE=1314648
+2026-04-08 18:18:14,269 [INFO] ← 201 | 35.74 ms
+2026-04-08 18:18:14,269 [INFO] 127.0.0.1 - - [08/Apr/2026 18:18:14] "[35m[1mPOST /train HTTP/1.1[0m" 201 -
+2026-04-08 18:18:35,891 [INFO] → POST /predict | body: {'area': 7420, 'bedrooms': 4, 'bathrooms': 2, 'stories': 3, 'parking': 2, 'mainroad': 'yes', 'guestroom': 'no', 'basement': 'no', 'hotwaterheating': 'no', 'airconditioning': 'yes', 'prefarea': 'yes', 'furnishingstatus': 'furnished'}
+2026-04-08 18:18:35,900 [INFO] ← 200 | 9.12 ms
+2026-04-08 18:18:35,900 [INFO] 127.0.0.1 - - [08/Apr/2026 18:18:35] "POST /predict HTTP/1.1" 200 -
+2026-04-08 18:18:56,951 [INFO] → POST /predict | body: {'area': 5000, 'bedrooms': 3, 'bathrooms': 1, 'stories': 2, 'parking': 1, 'mainroad': 'yes', 'guestroom': 'no', 'basement': 'yes', 'hotwaterheating': 'no', 'airconditioning': 'no', 'prefarea': 'no', 'furnishingstatus': 'semi-furnished', 'version': 'v1'}
+2026-04-08 18:18:56,959 [INFO] ← 200 | 7.73 ms
+2026-04-08 18:18:56,959 [INFO] 127.0.0.1 - - [08/Apr/2026 18:18:56] "POST /predict HTTP/1.1" 200 -
+2026-04-08 18:19:05,426 [INFO] → POST /predict | body: {'area': -100, 'bedrooms': 3, 'bathrooms': 1, 'stories': 2, 'parking': 1, 'mainroad': 'maybe', 'guestroom': 'no', 'basement': 'yes', 'hotwaterheating': 'no', 'airconditioning': 'no', 'prefarea': 'no', 'furnishingstatus': 'unknown'}
+2026-04-08 18:19:05,426 [INFO] ← 422 | 0.78 ms
+2026-04-08 18:19:05,426 [INFO] 127.0.0.1 - - [08/Apr/2026 18:19:05] "[31m[1mPOST /predict HTTP/1.1[0m" 422 -
+2026-04-08 18:19:18,401 [INFO] → GET /model-info | body: None
+2026-04-08 18:19:18,402 [INFO] ← 200 | 1.05 ms
+2026-04-08 18:19:18,402 [INFO] 127.0.0.1 - - [08/Apr/2026 18:19:18] "GET /model-info HTTP/1.1" 200 -
+2026-04-08 18:20:13,886 [INFO] → GET /model-info | body: None
+2026-04-08 18:20:13,887 [INFO] ← 200 | 1.15 ms
+2026-04-08 18:20:13,887 [INFO] 127.0.0.1 - - [08/Apr/2026 18:20:13] "GET /model-info?version=v1 HTTP/1.1" 200 -
+2026-04-08 18:20:19,934 [INFO] → GET /model-info | body: None
+2026-04-08 18:20:19,934 [INFO] ← 404 | 0.28 ms
+2026-04-08 18:20:19,934 [INFO] 127.0.0.1 - - [08/Apr/2026 18:20:19] "[33mGET /model-info?version=v99 HTTP/1.1[0m" 404 -
+2026-04-08 18:23:16,778 [INFO]  * Detected change in '/Users/pradhnyesh/Documents/Linkific-training/Day-13/ml-api-deployment/ml_utils.py', reloading
+2026-04-08 18:23:16,905 [INFO]  * Restarting with stat
+2026-04-08 18:23:17,709 [WARNING]  * Debugger is active!
+2026-04-08 18:23:17,715 [INFO]  * Debugger PIN: 784-130-694
