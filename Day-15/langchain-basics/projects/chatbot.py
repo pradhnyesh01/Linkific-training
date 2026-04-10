@@ -20,7 +20,6 @@ def make_conversation(persona: str = "helpful assistant") -> ConversationChain:
     """Create a fresh conversation chain with the given persona."""
     memory = ConversationBufferMemory(return_messages=False)
 
-    # Custom prompt that includes persona + history
     prompt = PromptTemplate(
         input_variables=["history", "input"],
         template=(
@@ -67,7 +66,6 @@ def run_chatbot():
 
         response = conversation.predict(input=user_input)
         print(f"Bot: {response}\n")
-
 
 if __name__ == "__main__":
     run_chatbot()

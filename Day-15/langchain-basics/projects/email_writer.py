@@ -31,7 +31,6 @@ review_prompt = ChatPromptTemplate.from_messages([
      "Return only the corrected email, nothing else.\n\n{draft}")
 ])
 
-# Two-step sequential chain
 draft_chain  = draft_prompt  | llm | parser
 review_chain = review_prompt | llm | parser
 
