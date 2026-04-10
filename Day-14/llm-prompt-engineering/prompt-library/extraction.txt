@@ -1,0 +1,52 @@
+# Extraction Prompt Templates
+# Usage: replace {TEXT}, {FIELDS}, {ENTITY_TYPES} with your values
+
+## T1 – Named entity extraction
+Extract all named entities from the text below. Group them by type: Person, Organization, Location, Date, Amount.
+
+{TEXT}
+
+---
+
+## T2 – Structured JSON extraction
+Extract the following fields from the text and return a valid JSON object.
+Fields: {FIELDS}
+If a field is not found, use null.
+Return only the JSON — no explanation.
+
+{TEXT}
+
+---
+
+## T3 – Conditional extraction
+From the text below, extract only items that match this condition: {CONDITION}
+Format as a simple numbered list. If none match, say "None found."
+
+{TEXT}
+
+---
+
+## T4 – Table extraction
+Extract all tabular data from the text and format it as a markdown table with headers.
+
+{TEXT}
+
+---
+
+## T5 – Quote extraction
+Extract all direct quotes or specific claims made in the text. For each, include:
+- Quote: "..."
+- Speaker/Source: <name or "Unknown">
+- Context: <1 sentence>
+
+{TEXT}
+
+---
+
+## T6 – Action items extraction
+Extract all action items, tasks, or to-dos mentioned in the text. For each include:
+- Task: <what needs to be done>
+- Owner: <person responsible, or "Unassigned">
+- Deadline: <date if mentioned, or "None">
+
+{TEXT}

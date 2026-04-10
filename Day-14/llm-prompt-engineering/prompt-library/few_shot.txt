@@ -1,0 +1,83 @@
+# Few-Shot Prompt Templates
+# Pattern: show 2–3 complete input→output examples, then leave the final output blank.
+
+## T1 – Classification (any label set)
+Classify the input as one of: {LABEL_1} | {LABEL_2} | {LABEL_3}
+
+Input: {EXAMPLE_INPUT_1}
+Label: {LABEL}
+
+Input: {EXAMPLE_INPUT_2}
+Label: {LABEL}
+
+Input: {EXAMPLE_INPUT_3}
+Label: {LABEL}
+
+Input: {YOUR_INPUT}
+Label:
+
+---
+
+## T2 – Format transformation
+Convert the input from {SOURCE_FORMAT} to {TARGET_FORMAT}.
+
+Input: {EXAMPLE_1_IN}
+Output: {EXAMPLE_1_OUT}
+
+Input: {EXAMPLE_2_IN}
+Output: {EXAMPLE_2_OUT}
+
+Input: {YOUR_INPUT}
+Output:
+
+---
+
+## T3 – Style rewriting
+Rewrite the input in {STYLE} style while preserving the meaning.
+
+Original: {EXAMPLE_1_ORIGINAL}
+Rewritten: {EXAMPLE_1_REWRITTEN}
+
+Original: {EXAMPLE_2_ORIGINAL}
+Rewritten: {EXAMPLE_2_REWRITTEN}
+
+Original: {YOUR_TEXT}
+Rewritten:
+
+---
+
+## T4 – Structured ticket/issue creation
+Convert the raw report into a structured ticket.
+Format:
+Title: <short title>
+Severity: Critical | High | Medium | Low
+Component: <affected area>
+Steps to reproduce:
+1. ...
+2. ...
+
+Report: {EXAMPLE_REPORT_1}
+Title: {TITLE}
+Severity: {SEVERITY}
+Component: {COMPONENT}
+Steps to reproduce:
+1. {STEP_1}
+2. {STEP_2}
+
+Report: {YOUR_REPORT}
+Title:
+
+---
+
+## T5 – Question → Answer (domain-specific)
+# Load 3–5 Q&A pairs from your domain, then ask your question.
+# This teaches the model terminology and expected answer depth.
+
+Q: {EXAMPLE_Q_1}
+A: {EXAMPLE_A_1}
+
+Q: {EXAMPLE_Q_2}
+A: {EXAMPLE_A_2}
+
+Q: {YOUR_QUESTION}
+A:

@@ -1,0 +1,47 @@
+# Summarization Prompt Templates
+# Usage: replace {TEXT}, {AUDIENCE}, {LENGTH}, {FORMAT} with your values
+
+## T1 – General constrained summary
+Summarize the following for {AUDIENCE} in {LENGTH}:
+
+{TEXT}
+
+---
+
+## T2 – Bullet key facts
+Extract the {N} most important facts from the passage below as a concise bullet list. Omit background information.
+
+{TEXT}
+
+---
+
+## T3 – TLDR + Headline
+Read the passage and respond with:
+Headline: <newspaper-style headline, max 12 words>
+TL;DR: <one sentence, max 25 words>
+
+{TEXT}
+
+---
+
+## T4 – Executive summary (structured)
+Write an executive summary of the following in this format:
+Context: <1 sentence — what this is about>
+Key findings: <3 bullet points>
+Action items: <bullet points, or "None" if informational>
+
+{TEXT}
+
+---
+
+## T5 – Comparison summary (two documents)
+Compare Document A and Document B. Respond with:
+- Similarities: <bullet list>
+- Key differences: <bullet list>
+- Recommendation: <1 sentence conclusion>
+
+Document A:
+{TEXT_A}
+
+Document B:
+{TEXT_B}

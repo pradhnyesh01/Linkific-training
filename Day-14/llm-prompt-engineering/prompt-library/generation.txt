@@ -1,0 +1,53 @@
+# Generation Prompt Templates
+# Usage: replace {PLACEHOLDERS} with your values. Adjust tone/length as needed.
+
+## T1 – Professional email
+Write a professional email from {SENDER} to {RECIPIENT} regarding {TOPIC}.
+Tone: {TONE}  (e.g., formal | friendly-professional | concise)
+Length: under {WORD_LIMIT} words.
+Do not add a subject line — just the body starting with the greeting.
+
+---
+
+## T2 – Code function
+Write a Python function that {DESCRIPTION}.
+Requirements:
+- Function signature: {SIGNATURE}
+- Handle edge case: {EDGE_CASE}
+- No docstring needed
+Include a usage example in a comment at the bottom.
+
+---
+
+## T3 – Product description (Apple style)
+Write a product description for {PRODUCT} aimed at {AUDIENCE}.
+Style: short punchy sentences, present tense, no exclamation marks, no buzzwords.
+Length: {WORD_LIMIT} words exactly.
+Highlight: {KEY_FEATURES}
+
+---
+
+## T4 – Realistic test data
+Generate {N} realistic but fake {ENTITY_TYPE} records as a JSON array.
+Each record must have these fields: {FIELDS}
+Constraints: {CONSTRAINTS}
+Return only the JSON array, no explanation.
+
+---
+
+## T5 – LinkedIn post
+Write a LinkedIn post from the perspective of {PERSONA} about {TOPIC}.
+Tone: authentic, not salesy. No hashtag spam — maximum 3 hashtags.
+Length: 150–200 words.
+Hook: start with a question or surprising statement, not "I'm excited to..."
+
+---
+
+## T6 – SQL query
+Write a SQL query that {DESCRIPTION}.
+Table schema:
+{SCHEMA}
+Requirements:
+- Use {DIALECT} syntax (PostgreSQL | MySQL | SQLite)
+- {ADDITIONAL_REQUIREMENTS}
+Return only the SQL query, no explanation.

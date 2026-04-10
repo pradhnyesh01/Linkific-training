@@ -1,0 +1,66 @@
+# Reasoning & Chain-of-Thought Prompt Templates
+
+## T1 – Zero-shot CoT (universal add-on)
+# Append to any question/problem prompt:
+Think step by step before giving your final answer.
+
+---
+
+## T2 – Structured CoT (explicit steps)
+Solve the following problem. Show your work in this format:
+Step 1: [Identify what is known]
+Step 2: [Identify what is needed]
+Step 3: [Work through the solution]
+Step 4: [Verify your answer makes sense]
+Final answer: [concise answer]
+
+Problem: {PROBLEM}
+
+---
+
+## T3 – Pros/Cons decision framework
+Evaluate the decision: {DECISION}
+Context: {CONTEXT}
+
+Structure your analysis as:
+Pros:
+- <pro 1>
+- <pro 2>
+Cons:
+- <con 1>
+- <con 2>
+Key risks: <1-2 sentences>
+Recommendation: <1 sentence with justification>
+
+---
+
+## T4 – Devil's advocate
+I believe: {CLAIM}
+Play devil's advocate. Give the 3 strongest counterarguments to my position, then rate how convincing each is (1–5) and why.
+
+---
+
+## T5 – Root cause analysis
+A problem occurred: {PROBLEM_DESCRIPTION}
+Perform a root cause analysis:
+1. Immediate cause: <what directly caused the problem>
+2. Contributing factors: <what made it possible>
+3. Root cause: <the underlying systemic issue>
+4. Prevention: <what would stop it happening again>
+
+---
+
+## T6 – Few-shot CoT template
+Solve word problems step by step, then state the final answer clearly.
+
+Problem: {EXAMPLE_PROBLEM_1}
+Step 1: {STEP_1}
+Step 2: {STEP_2}
+Answer: {ANSWER_1}
+
+Problem: {EXAMPLE_PROBLEM_2}
+Step 1: {STEP_1}
+Step 2: {STEP_2}
+Answer: {ANSWER_2}
+
+Problem: {YOUR_PROBLEM}

@@ -15,6 +15,11 @@ __pycache__/
 *.csv
 *.xlsx
 
+CLAUDE.md
+.claude/
+
+.git-rewrite/
+
 # Virtual env
 venv/
 
