@@ -38,6 +38,19 @@
       "data_path": "/Users/pradhnyesh/Documents/Linkific-training/Day-7/Housing.csv",
       "train_size": 436,
       "test_size": 109
+    },
+    {
+      "version": "v4",
+      "file": "/Users/pradhnyesh/Documents/Linkific-training/Day-13/ml-api-deployment/models/model_v4.joblib",
+      "metrics": {
+        "mse": 1728299885729.0625,
+        "rmse": 1314648.1984656816,
+        "r2": 0.6580718436005965
+      },
+      "trained_at": "2026-04-08T13:48:39.266202Z",
+      "data_path": "/Users/pradhnyesh/Documents/Linkific-training/Day-7/Housing.csv",
+      "train_size": 436,
+      "test_size": 109
     }
   ]
 }
