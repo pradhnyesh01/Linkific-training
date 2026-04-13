@@ -1,0 +1,25 @@
+Machine Learning Concepts
+
+Supervised Learning
+Supervised learning is a type of machine learning where the model is trained on labeled data. Each training example has an input and a known correct output. The model learns to map inputs to outputs. Common examples include linear regression for predicting house prices and classification for spam detection.
+
+Unsupervised Learning
+Unsupervised learning trains on data without labels. The model finds hidden patterns on its own. Clustering algorithms like K-Means group similar data points together. Dimensionality reduction techniques like PCA compress data while preserving important structure.
+
+Overfitting
+Overfitting happens when a model learns the training data too well, including its noise. The model performs well on training data but poorly on new unseen data. Solutions include adding more training data, using dropout, applying regularization (L1/L2), and simplifying the model.
+
+Underfitting
+Underfitting occurs when a model is too simple to capture the underlying pattern in the data. Both training and test accuracy are low. Solutions include using a more complex model, adding more features, and training for more epochs.
+
+Gradient Descent
+Gradient descent is an optimization algorithm used to minimize the loss function. It iteratively adjusts model weights in the direction opposite to the gradient of the loss. Learning rate controls how big each step is. Too high a learning rate causes divergence; too low makes training very slow.
+
+Neural Networks
+A neural network is a series of layers of nodes inspired by the human brain. Each node applies a weighted sum followed by an activation function. Deep neural networks have many hidden layers. They are especially powerful for images (CNNs) and sequences (RNNs, Transformers).
+
+Cross Validation
+Cross validation is a technique to evaluate model performance on unseen data. In k-fold cross validation, the dataset is split into k equal parts. The model is trained on k-1 parts and tested on the remaining part. This is repeated k times and results are averaged.
+
+Feature Engineering
+Feature engineering is the process of using domain knowledge to create or transform input variables that help machine learning models perform better. Examples include creating a "day of week" feature from a date, normalizing numerical values, and encoding categorical variables.

@@ -1,0 +1,22 @@
+India Space Programme and ISRO Achievements
+
+Chandrayaan-3
+Chandrayaan-3 was India's third lunar exploration mission launched on July 14, 2023. It consisted of a lander named Vikram and a rover named Pragyan. On August 23, 2023, Vikram made a successful soft landing near the lunar south pole. India became the fourth country to land on the Moon and the first to land near the south pole. The total mission cost was approximately Rs 615 crore. The Pragyan rover confirmed the presence of sulphur and other elements on the lunar surface.
+
+Mangalyaan (Mars Orbiter Mission)
+Mangalyaan was India's first interplanetary mission, launched on November 5, 2013. It successfully entered Mars orbit on September 24, 2014. India became the first country to reach Mars orbit on its first attempt. ISRO became the fourth space agency to reach Mars after Roscosmos, NASA, and ESA. The total cost was about Rs 450 crore, making it one of the cheapest Mars missions ever.
+
+PSLV - Polar Satellite Launch Vehicle
+The PSLV is ISRO's most reliable launch vehicle. It has a near-perfect success rate across over 50 launches. In February 2017, PSLV-C37 set a world record by launching 104 satellites in a single mission. It is used primarily to launch Earth observation satellites into polar and sun-synchronous orbits.
+
+GSLV - Geosynchronous Satellite Launch Vehicle
+The GSLV is designed to launch heavier communication satellites into geostationary transfer orbits. The GSLV Mk III (also called LVM3) is India's heaviest rocket with a payload capacity of 4000 kg to GTO. It was used in the Chandrayaan-3 and OneWeb missions.
+
+Gaganyaan Mission
+Gaganyaan is India's first human spaceflight programme. It aims to send three Indian astronauts (called Vyomanauts) to low Earth orbit for three days. The mission uses the GSLV Mk III rocket. Four Indian Air Force pilots have been selected and trained in Russia for the mission.
+
+Aditya-L1
+Aditya-L1 is India's first solar observation mission, launched on September 2, 2023. It was placed at the Lagrange Point 1 (L1), about 1.5 million km from Earth, giving an unobstructed view of the Sun. It studies solar winds, solar flares, and their effects on Earth's environment.
+
+AstroSat
+AstroSat is India's first dedicated multi-wavelength space observatory, launched in 2015. It observes cosmic objects simultaneously in ultraviolet, optical, and X-ray wavelengths. It has made significant contributions to the study of neutron stars, black holes, and galaxies.

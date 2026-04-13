@@ -1,0 +1,31 @@
+Python Programming Tips and Best Practices
+
+List Comprehensions
+List comprehensions provide a concise way to create lists in Python. Instead of writing a for loop, you can write the entire logic in one line. Example: squares = [x**2 for x in range(10)]. They are faster than traditional for loops because they are optimized at the C level internally.
+
+Decorators
+A decorator is a function that wraps another function to extend its behavior without modifying it. They are defined using the @symbol above a function definition. Common use cases include logging, timing functions, authentication checks, and caching results. The functools.wraps decorator preserves the original function metadata.
+
+Context Managers
+Context managers handle setup and teardown logic automatically using the with statement. The most common example is opening files: with open('file.txt') as f. This ensures the file is properly closed even if an exception occurs. You can create custom context managers using the contextlib module or by defining __enter__ and __exit__ methods.
+
+Virtual Environments
+A virtual environment is an isolated Python environment that keeps project dependencies separate. Use python -m venv env to create one and source env/bin/activate to activate it on Linux/Mac. Each project should have its own virtual environment to avoid dependency conflicts between projects.
+
+f-Strings
+f-strings (formatted string literals) were introduced in Python 3.6. They allow embedding expressions directly inside string literals using curly braces. Example: name = "Pradhnyesh"; print(f"Hello, {name}!"). They are faster and more readable than .format() or % formatting.
+
+Generator Functions
+Generators produce values one at a time using the yield keyword instead of return. They are memory efficient because they do not store all values in memory at once. Use generators when processing large datasets or infinite sequences. Example: def count_up(n): for i in range(n): yield i.
+
+Lambda Functions
+Lambda functions are anonymous single-expression functions. They are useful for short operations passed as arguments. Example: sorted(data, key=lambda x: x['age']). For complex logic, regular named functions are more readable and preferred.
+
+Error Handling
+Use try-except blocks to handle exceptions gracefully. Always catch specific exceptions rather than a bare except clause. Use finally for cleanup code that must run regardless of success or failure. The else block runs only if no exception was raised in the try block.
+
+Type Hints
+Type hints (PEP 484) allow you to annotate variable and function types. Example: def add(a: int, b: int) -> int. They do not enforce types at runtime but improve code readability and enable static analysis tools like mypy to catch bugs early.
+
+The __init__.py File
+The __init__.py file marks a directory as a Python package. It can be empty or contain initialization code. When you import a package, Python runs this file first. It is used to expose selected functions or classes at the package level for cleaner imports.
