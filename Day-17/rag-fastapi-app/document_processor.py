@@ -3,8 +3,10 @@ Document Processor – extracts text from PDF, TXT, DOCX and splits into chunks.
 """
 
 import PyPDF2
+import docx
 
-SUPPORTED_EXTENSIONS = {".pdf", ".txt"}
+
+SUPPORTED_EXTENSIONS = {".pdf", ".txt", ".docx"}
 
 
 def extract_text(file_path: str, extension: str) -> str:
