@@ -1,0 +1,100 @@
+{
+  "info": {
+    "name": "Day 17 – RAG FastAPI",
+    "description": "Upload documents and query them via RAG.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000" }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/",
+        "description": "Check if the API is running."
+      }
+    },
+    {
+      "name": "Upload Document (TXT)",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/upload",
+        "description": "Upload a .txt file. Change the file path to one on your machine.",
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/path/to/your/document.txt",
+              "description": "Select a .txt, .pdf, or .docx file"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Upload Document (PDF)",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/upload",
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/path/to/your/document.pdf"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Query Documents",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/query",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"question\": \"What is overfitting and how can I fix it?\"\n}"
+        }
+      }
+    },
+    {
+      "name": "List Documents",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/documents",
+        "description": "List all documents indexed in the vector database."
+      }
+    },
+    {
+      "name": "Delete Document",
+      "request": {
+        "method": "DELETE",
+        "url": "{{base_url}}/document/REPLACE_WITH_DOC_ID",
+        "description": "Replace REPLACE_WITH_DOC_ID with the doc_id returned from the upload response."
+      }
+    },
+    {
+      "name": "Get History",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/history",
+        "description": "Get all questions and answers from this session."
+      }
+    },
+    {
+      "name": "Clear History",
+      "request": {
+        "method": "DELETE",
+        "url": "{{base_url}}/history",
+        "description": "Clear all conversation history."
+      }
+    }
+  ]
+}
