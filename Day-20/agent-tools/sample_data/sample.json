@@ -1,0 +1,24 @@
+{
+  "project": "Linkific AIML Internship",
+  "day": 20,
+  "topic": "Tool Creation and Function Calling",
+  "tools": [
+    {"id": 1, "name": "calculator",      "deps": "stdlib"},
+    {"id": 2, "name": "web_search",      "deps": "duckduckgo-search"},
+    {"id": 3, "name": "database_query",  "deps": "psycopg2-binary"},
+    {"id": 4, "name": "file_reader",     "deps": "stdlib"},
+    {"id": 5, "name": "weather",         "deps": "stdlib"},
+    {"id": 6, "name": "email_sender",    "deps": "stdlib"},
+    {"id": 7, "name": "datetime_tool",   "deps": "stdlib"},
+    {"id": 8, "name": "data_analyzer",   "deps": "pandas"}
+  ],
+  "concepts": [
+    "Tool schemas (JSON Schema format)",
+    "OpenAI function calling API",
+    "Tool dispatch loop",
+    "Error handling in tools",
+    "Tool chaining"
+  ],
+  "model": "gpt-4o-mini",
+  "free_apis": ["Open-Meteo (weather)", "DuckDuckGo (web search)"]
+}

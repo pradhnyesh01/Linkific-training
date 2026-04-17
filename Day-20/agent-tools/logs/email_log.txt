@@ -1,0 +1,9 @@
+{"message_id": "MSG-20260417120329-1016", "timestamp": "2026-04-17T12:03:29Z", "to": "test@example.com", "cc": null, "subject": "Hello", "priority": "normal", "body_chars": 9}
+{"message_id": "MSG-20260417120433-7428", "timestamp": "2026-04-17T12:04:33Z", "to": "alice@example.com", "cc": null, "subject": "Meeting Tomorrow", "priority": "normal", "body_chars": 49}
+{"message_id": "MSG-20260417120433-3318", "timestamp": "2026-04-17T12:04:33Z", "to": "boss@company.com", "cc": "devops@company.com", "subject": "Server Outage", "priority": "high", "body_chars": 34}
+{"message_id": "MSG-20260417121123-3663", "timestamp": "2026-04-17T12:11:23Z", "to": "alice@example.com", "cc": null, "subject": "Meeting Reminder", "priority": "normal", "body_chars": 51}
+{"message_id": "MSG-20260417121123-4984", "timestamp": "2026-04-17T12:11:23Z", "to": "cto@company.com", "cc": "devops@company.com", "subject": "URGENT: Database Alert", "priority": "high", "body_chars": 50}
+{"message_id": "MSG-20260417124954-6390", "timestamp": "2026-04-17T12:49:54Z", "to": "alice@example.com", "cc": null, "subject": "Meeting Tomorrow", "priority": "normal", "body_chars": 49}
+{"message_id": "MSG-20260417124954-0965", "timestamp": "2026-04-17T12:49:54Z", "to": "boss@company.com", "cc": "devops@company.com", "subject": "Server Outage", "priority": "high", "body_chars": 34}
+{"message_id": "MSG-20260417130142-4328", "timestamp": "2026-04-17T13:01:42Z", "to": "alice@example.com", "cc": null, "subject": "Project Update", "priority": "normal", "body_chars": 58}
+{"message_id": "MSG-20260417130142-8189", "timestamp": "2026-04-17T13:01:42Z", "to": "manager@company.com", "cc": "devops@company.com", "subject": "URGENT: Server Down", "priority": "high", "body_chars": 52}

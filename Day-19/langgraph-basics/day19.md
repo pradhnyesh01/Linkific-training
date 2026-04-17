@@ -35,7 +35,7 @@ pip install langgraph langchain-openai python-dotenv
 | Human-in-the-loop | `MemorySaver` + `interrupt_before` + `update_state` + resume with `invoke(None)` |
 
 ### Visualisation
-All examples call `app.get_graph().draw_mermaid()` — paste output at mermaid.live to see the graph.
+Stored at /graphs
 
 ### Human-in-the-loop flow
 ```
