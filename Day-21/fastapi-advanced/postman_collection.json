@@ -1,0 +1,585 @@
+{
+  "info": {
+    "name": "FastAPI Advanced (Day-21)",
+    "description": "Complete Postman collection for the Day-21 fastapi-advanced project.\n\nFeatures covered:\n- Async endpoints\n- Dependency injection (API key auth, pagination, filters)\n- Middleware (X-Process-Time header on every response)\n- Background tasks (email, item logging)\n- API versioning (v1 and v2)\n- Custom error handling\n\nSetup:\n1. Start the server: uvicorn main:app --reload\n2. Import this collection into Postman\n3. Collection variables are pre-set (base_url, api_key)\n4. Hit Send on any request!",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000",
+      "type": "string",
+      "description": "FastAPI server base URL"
+    },
+    {
+      "key": "api_key",
+      "value": "dev-key-123",
+      "type": "string",
+      "description": "API key for protected endpoints. Valid keys: dev-key-123, prod-key-456, test-key-789"
+    },
+    {
+      "key": "item_id",
+      "value": "1",
+      "type": "string",
+      "description": "Item ID for single-item requests"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "description": "Public health check — no authentication required.",
+      "item": [
+        {
+          "name": "GET /health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            },
+            "description": "Public health check. No API key needed.\n\nExpected response:\n{\n  \"status\": \"ok\",\n  \"timestamp\": \"...\",\n  \"version\": \"1.0.0\"\n}\n\nAlso check the X-Process-Time header in the response — added by middleware."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Items v1",
+      "description": "CRUD operations for items. GET endpoints are public; POST/PUT/DELETE require X-API-Key.",
+      "item": [
+        {
+          "name": "GET /v1/items — list all",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v1/items",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "items"]
+            },
+            "description": "List all items with default pagination (page 1, 10 per page).\nNo authentication required."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /v1/items — filter by category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v1/items?category=electronics",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "items"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "electronics",
+                  "description": "Valid values: electronics, food, clothing, other"
+                }
+              ]
+            },
+            "description": "Filter items by category.\nTry changing 'electronics' to: food, clothing, other\n\nSend 'invalid_cat' to see the 400 validation error."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /v1/items — filter in_stock",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v1/items?in_stock=true",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "items"],
+              "query": [
+                {
+                  "key": "in_stock",
+                  "value": "true",
+                  "description": "true or false"
+                }
+              ]
+            },
+            "description": "Filter to only in-stock (or out-of-stock) items."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /v1/items — paginated",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v1/items?page=1&per_page=2",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "items"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (1-based)"
+                },
+                {
+                  "key": "per_page",
+                  "value": "2",
+                  "description": "Items per page (1-100)"
+                }
+              ]
+            },
+            "description": "Paginated response. Response includes: items, total, page, per_page, pages."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /v1/items/:item_id — get one",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v1/items/{{item_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "items", "{{item_id}}"]
+            },
+            "description": "Get a single item by ID.\n\nChange {{item_id}} in collection variables to try different IDs.\nTry ID 9999 to see the 404 error response."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /v1/items — create item [AUTH]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{api_key}}",
+                "type": "text",
+                "description": "Required. Change {{api_key}} in collection variables."
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Wireless Headphones\",\n  \"description\": \"Noise-cancelling over-ear headphones\",\n  \"price\": 2999.99,\n  \"category\": \"electronics\",\n  \"in_stock\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/items",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "items"]
+            },
+            "description": "Create a new item. Returns 201 on success.\n\nRequires X-API-Key header.\n\nValidation rules:\n- name: 1–100 chars (stripped of whitespace)\n- price: must be > 0\n- category: must be one of electronics, food, clothing, other\n- in_stock: defaults to true\n\nAfter sending, check the server terminal for:\n[BG TASK] Item logged: {...}\n(Background task runs after the response is sent)"
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /v1/items/:item_id — update item [AUTH]",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laptop Pro\",\n  \"description\": \"Updated 15-inch ultrabook with OLED display\",\n  \"price\": 89999.0,\n  \"category\": \"electronics\",\n  \"in_stock\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/items/{{item_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "items", "{{item_id}}"]
+            },
+            "description": "Full update (replace) of an existing item.\nRequires X-API-Key header.\n\nAll fields must be provided (same as POST)."
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /v1/items/:item_id — delete item [AUTH]",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{api_key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/v1/items/{{item_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "items", "{{item_id}}"]
+            },
+            "description": "Delete an item by ID.\nRequires X-API-Key header.\n\nReturns: {\"message\": \"Item X deleted.\", \"success\": true}"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users v1",
+      "description": "User management. Both endpoints require X-API-Key.",
+      "item": [
+        {
+          "name": "GET /v1/users — list all [AUTH]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{api_key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/v1/users",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "users"]
+            },
+            "description": "List all users. Requires X-API-Key header.\n\nRemove the header to see the 401 Unauthorized error."
+          },
+          "response": []
+        },
+        {
+          "name": "POST /v1/users — create user [AUTH]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"pradhnyesh\",\n  \"email\": \"pradhnyesh@example.com\",\n  \"age\": 22\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/users",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "users"]
+            },
+            "description": "Create a new user. Returns 201 on success.\nRequires X-API-Key header.\n\nValidation rules:\n- username: 3–30 chars\n- email: must be valid email format\n- age: optional, 0–150\n\nSending the same username twice returns 409 Conflict."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Email & Background Tasks",
+      "description": "Background task demo. The response arrives instantly; the email is sent 2 seconds later in the background.",
+      "item": [
+        {
+          "name": "POST /v1/send-email — queue email [AUTH]",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"to\": \"user@example.com\",\n  \"subject\": \"Order Confirmed\",\n  \"body\": \"Your order #1234 has been confirmed. Thank you for shopping with us!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/send-email",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "send-email"]
+            },
+            "description": "Queues an email as a background task.\n\nThe response comes back IMMEDIATELY — the client doesn't wait.\nThe actual email sending (simulated 2s delay) happens after the response.\n\nAfter sending:\n1. Notice the response arrives in ~10ms\n2. Wait 2 seconds\n3. Then hit GET /v1/email-log to confirm it was sent\n4. Also check the server terminal for: [BG TASK] Email sent to..."
+          },
+          "response": []
+        },
+        {
+          "name": "GET /v1/email-log — view sent emails [AUTH]",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{api_key}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/v1/email-log",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "email-log"]
+            },
+            "description": "View all emails that were sent via background tasks.\n\nWait at least 2 seconds after POST /v1/send-email before calling this,\nso the background task has time to complete."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Async Demo",
+      "description": "Demonstrates asyncio.gather() — 3 concurrent API calls completing in the time of 1.",
+      "item": [
+        {
+          "name": "GET /v1/async-demo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v1/async-demo",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "async-demo"]
+            },
+            "description": "Calls 3 'external services' concurrently using asyncio.gather().\n\nExpected response:\n- ServiceA: 0.5s delay\n- ServiceB: 0.3s delay  \n- ServiceC: 0.4s delay\n- total_time_s ≈ 0.5s  (max, not sum!)\n\nIf run synchronously, it would take 0.5+0.3+0.4 = 1.2s.\nAsync runs them all at once → only 0.5s."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Items v2",
+      "description": "v2 API — breaking change: price is now returned in paise (price × 100) instead of rupees.",
+      "item": [
+        {
+          "name": "GET /v2/items — list (price in paise)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v2/items",
+              "host": ["{{base_url}}"],
+              "path": ["v2", "items"]
+            },
+            "description": "v2 list endpoint. Price is returned multiplied by 100 (paise).\n\nCompare with GET /v1/items:\n- v1: \"price\": 75000.0\n- v2: \"price\": 7500000  (same item, different unit)"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /v2/items/:item_id — get one (with price_paise)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v2/items/{{item_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["v2", "items", "{{item_id}}"]
+            },
+            "description": "v2 single item. Includes an extra field: price_paise.\n\nFor item 1 (Laptop at ₹75,000):\n- price: 75000.0  (same as v1)\n- price_paise: 7500000  (new in v2)\n- api_version: \"v2\"  (new in v2)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Error Cases (try these!)",
+      "description": "Pre-built requests that intentionally trigger errors. Good for understanding validation and auth.",
+      "item": [
+        {
+          "name": "401 — Missing API key",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Item\",\n  \"price\": 100,\n  \"category\": \"other\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/items",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "items"]
+            },
+            "description": "POST to a protected endpoint without an API key.\nExpected: 401 Unauthorized"
+          },
+          "response": []
+        },
+        {
+          "name": "403 — Invalid API key",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "wrong-key-999",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/v1/users",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "users"]
+            },
+            "description": "Wrong API key.\nExpected: 403 Forbidden"
+          },
+          "response": []
+        },
+        {
+          "name": "404 — Item not found",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v1/items/9999",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "items", "9999"]
+            },
+            "description": "Item ID that doesn't exist.\nExpected: 404 Not Found"
+          },
+          "response": []
+        },
+        {
+          "name": "400 — Invalid category filter",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/v1/items?category=invalid_cat",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "items"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "invalid_cat"
+                }
+              ]
+            },
+            "description": "Category that doesn't exist in the whitelist.\nExpected: 400 Bad Request"
+          },
+          "response": []
+        },
+        {
+          "name": "422 — Invalid item body",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"\",\n  \"price\": -50,\n  \"category\": \"gadgets\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/items",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "items"]
+            },
+            "description": "Multiple validation failures at once:\n- name: empty string (min_length=1)\n- price: negative (must be > 0)\n- category: 'gadgets' not in allowed list\n\nExpected: 422 Unprocessable Entity with detailed error list from Pydantic"
+          },
+          "response": []
+        },
+        {
+          "name": "404 — Unknown route",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/this/route/does/not/exist",
+              "host": ["{{base_url}}"],
+              "path": ["this", "route", "does", "not", "exist"]
+            },
+            "description": "Hit a route that doesn't exist.\nExpected: custom 404 JSON from our error handler in middleware.py\n(Not the default FastAPI 404 — our custom one with error_code field)"
+          },
+          "response": []
+        },
+        {
+          "name": "409 — Duplicate username",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-API-Key",
+                "value": "{{api_key}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"alice\",\n  \"email\": \"alice2@example.com\",\n  \"age\": 28\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/v1/users",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "users"]
+            },
+            "description": "Try to create a user with username 'alice' — already exists in the in-memory DB.\nExpected: 409 Conflict"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
