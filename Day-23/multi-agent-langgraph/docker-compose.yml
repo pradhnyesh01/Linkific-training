@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  research-agent:
+    build: .
+    env_file: .env              # loads OPENAI_API_KEY from your .env file
+    volumes:
+      - ./logs:/app/logs        # persist log files outside the container
+
+    # Override the default topic:
+    # command: python main.py "impact of quantum computing on cryptography"

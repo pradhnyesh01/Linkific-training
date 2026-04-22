@@ -1,0 +1,40 @@
+2026-04-22 17:53:19 | INFO     | main                 | Pipeline started — topic: impact of artificial intelligence on healthcare
+2026-04-22 17:53:19 | DEBUG    | agent.researcher     | LLM call (tool loop) — 2 messages
+2026-04-22 17:53:22 | DEBUG    | cost_tracker         | [Researcher] gpt-4o-mini-2024-07-18 — in=167 out=88 tokens — $0.000078
+2026-04-22 17:53:22 | INFO     | agent.researcher     | Tool call → web_search({'query': 'impact of artificial intelligence on healthcare', 'max_results': 5})
+2026-04-22 17:53:29 | DEBUG    | agent.researcher     | Tool result ← success=True
+2026-04-22 17:53:29 | INFO     | agent.researcher     | Tool call → web_search({'query': 'AI applications in healthcare', 'max_results': 5})
+2026-04-22 17:53:38 | DEBUG    | agent.researcher     | Tool result ← success=True
+2026-04-22 17:53:38 | INFO     | agent.researcher     | Tool call → web_search({'query': 'challenges and benefits of AI in healthcare', 'max_results': 5})
+2026-04-22 17:53:47 | DEBUG    | agent.researcher     | Tool result ← success=True
+2026-04-22 17:53:47 | DEBUG    | agent.researcher     | LLM call (tool loop) — 6 messages
+2026-04-22 17:53:57 | DEBUG    | cost_tracker         | [Researcher] gpt-4o-mini-2024-07-18 — in=2507 out=637 tokens — $0.000758
+2026-04-22 17:53:57 | DEBUG    | agent.researcher     | Tool loop complete — finish_reason=stop
+2026-04-22 17:53:57 | DEBUG    | agent.analyzer       | LLM call — 2 messages
+2026-04-22 17:54:03 | DEBUG    | cost_tracker         | [Analyzer] gpt-4o-mini-2024-07-18 — in=2089 out=451 tokens — $0.000584
+2026-04-22 17:54:03 | DEBUG    | agent.analyzer       | LLM response — 2540 tokens (in=2089, out=451)
+2026-04-22 17:54:03 | DEBUG    | agent.critic         | LLM call — 2 messages
+2026-04-22 17:54:11 | DEBUG    | cost_tracker         | [Critic] gpt-4o-mini-2024-07-18 — in=602 out=482 tokens — $0.000379
+2026-04-22 17:54:11 | DEBUG    | agent.critic         | LLM response — 1084 tokens (in=602, out=482)
+2026-04-22 17:54:11 | DEBUG    | agent.researcher     | LLM call (tool loop) — 2 messages
+2026-04-22 17:54:14 | DEBUG    | cost_tracker         | [Researcher] gpt-4o-mini-2024-07-18 — in=167 out=86 tokens — $0.000077
+2026-04-22 17:54:14 | INFO     | agent.researcher     | Tool call → web_search({'query': 'impact of artificial intelligence on healthcare', 'max_results': 5})
+2026-04-22 17:54:17 | DEBUG    | agent.researcher     | Tool result ← success=True
+2026-04-22 17:54:17 | INFO     | agent.researcher     | Tool call → web_search({'query': 'AI applications in healthcare', 'max_results': 5})
+2026-04-22 17:54:23 | DEBUG    | agent.researcher     | Tool result ← success=True
+2026-04-22 17:54:23 | INFO     | agent.researcher     | Tool call → web_search({'query': 'future of artificial intelligence in healthcare', 'max_results': 5})
+2026-04-22 17:54:29 | DEBUG    | agent.researcher     | Tool result ← success=True
+2026-04-22 17:54:29 | DEBUG    | agent.researcher     | LLM call (tool loop) — 6 messages
+2026-04-22 17:54:40 | DEBUG    | cost_tracker         | [Researcher] gpt-4o-mini-2024-07-18 — in=1603 out=671 tokens — $0.000643
+2026-04-22 17:54:40 | DEBUG    | agent.researcher     | Tool loop complete — finish_reason=stop
+2026-04-22 17:54:40 | DEBUG    | agent.analyzer       | LLM call — 2 messages
+2026-04-22 17:54:48 | DEBUG    | cost_tracker         | [Analyzer] gpt-4o-mini-2024-07-18 — in=3186 out=392 tokens — $0.000713
+2026-04-22 17:54:48 | DEBUG    | agent.analyzer       | LLM response — 3578 tokens (in=3186, out=392)
+2026-04-22 17:54:48 | DEBUG    | agent.critic         | LLM call — 2 messages
+2026-04-22 17:54:55 | DEBUG    | cost_tracker         | [Critic] gpt-4o-mini-2024-07-18 — in=543 out=496 tokens — $0.000379
+2026-04-22 17:54:55 | DEBUG    | agent.critic         | LLM response — 1039 tokens (in=543, out=496)
+2026-04-22 17:54:56 | DEBUG    | agent.writer         | LLM call — 2 messages
+2026-04-22 17:55:09 | DEBUG    | cost_tracker         | [Writer] gpt-4o-mini-2024-07-18 — in=1019 out=811 tokens — $0.000639
+2026-04-22 17:55:09 | DEBUG    | agent.writer         | LLM response — 1830 tokens (in=1019, out=811)
+2026-04-22 17:55:09 | INFO     | cost_tracker         | Run complete — 9 calls, 15,997 tokens, $0.0043
+2026-04-22 17:55:09 | INFO     | main                 | Pipeline complete

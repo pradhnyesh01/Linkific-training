@@ -17,7 +17,10 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
 
 from graph import research_graph
+from cost_tracker import tracker
+from logger import get_logger
 
+log = get_logger("main")
 
 DEFAULT_TOPIC = "impact of artificial intelligence on healthcare"
 
@@ -45,6 +48,9 @@ def run(topic: str) -> dict:
     Returns:
         Final ResearchState dict with all fields populated.
     """
+    log.info(f"Pipeline started — topic: {topic}")
+    tracker.reset()
+
     print(f"\n{'='*60}", flush=True)
     print(f"  Multi-Agent Research System (LangGraph)", flush=True)
     print(f"  Topic: {topic}", flush=True)
@@ -119,6 +125,8 @@ def run(topic: str) -> dict:
     for entry in final_state["log"]:
         print(f"    {entry}", flush=True)
 
+    tracker.summary()
+    log.info("Pipeline complete")
     return final_state
 
 

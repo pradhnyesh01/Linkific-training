@@ -6,12 +6,19 @@ Every agent:
   - Has a name and role description
   - Shares a single OpenAI client
   - Uses _chat() to call the LLM
+  - Logs every LLM call (token count, model)
+  - Tracks token cost via the global CostTracker
   - Implements run(state) → state
 """
 
 import json
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
 from openai import OpenAI
-from state import ResearchState
+from logger import get_logger
+from cost_tracker import tracker
 
 
 class BaseAgent:
@@ -19,32 +26,39 @@ class BaseAgent:
     Common foundation for all agents.
 
     Subclasses must implement:
-        run(self, state: ResearchState) -> ResearchState
+        run(self, state) -> state
     """
 
     def __init__(self, name: str, role: str, model: str = "gpt-4o-mini"):
         self.name   = name
         self.role   = role
         self.model  = model
-        self.client = OpenAI()   # reads OPENAI_API_KEY from environment
+        self.client = OpenAI()
+        self.logger = get_logger(f"agent.{name.lower()}")
 
     # ── LLM helpers ───────────────────────────────────────────────────────────
 
     def _chat(self, messages: list[dict], tools: list[dict] | None = None) -> str:
         """
         Send messages to OpenAI. Returns the assistant's text response.
-        If tools are provided, they are passed as function-calling schemas.
+        Logs the call and tracks token usage automatically.
         """
-        kwargs = {
-            "model":    self.model,
-            "messages": messages,
-        }
+        kwargs = {"model": self.model, "messages": messages}
         if tools:
             kwargs["tools"] = tools
 
+        self.logger.debug(f"LLM call — {len(messages)} messages")
+
         response = self.client.chat.completions.create(**kwargs)
-        content  = response.choices[0].message.content
-        return content or ""
+        content  = response.choices[0].message.content or ""
+
+        tracker.track(response, agent_name=self.name)
+        self.logger.debug(
+            f"LLM response — {response.usage.total_tokens} tokens "
+            f"(in={response.usage.prompt_tokens}, out={response.usage.completion_tokens})"
+        )
+
+        return content
 
     def _chat_with_tools(self, messages: list[dict], tools: list[dict], executor) -> tuple[str, list[dict]]:
         """
@@ -52,14 +66,16 @@ class BaseAgent:
 
         Keeps calling OpenAI until finish_reason == "stop".
         Each tool call is dispatched via executor(tool_name, args) -> dict.
+        Logs every tool call and its result.
 
         Returns:
             (final_text, tool_calls_made)
-            where tool_calls_made is a list of {name, args, result}
         """
         tool_calls_made = []
 
         while True:
+            self.logger.debug(f"LLM call (tool loop) — {len(messages)} messages")
+
             response      = self.client.chat.completions.create(
                 model    = self.model,
                 messages = messages,
@@ -69,34 +85,35 @@ class BaseAgent:
             finish_reason = choice.finish_reason
             message       = choice.message
 
+            tracker.track(response, agent_name=self.name)
+
             if finish_reason == "stop":
+                self.logger.debug("Tool loop complete — finish_reason=stop")
                 return message.content or "", tool_calls_made
 
             if finish_reason == "tool_calls":
-                # Append the assistant's tool_calls message first
                 messages.append(message)
 
-                # Execute each requested tool call
                 for tc in message.tool_calls:
                     fn_name = tc.function.name
                     fn_args = json.loads(tc.function.arguments)
 
+                    self.logger.info(f"Tool call → {fn_name}({fn_args})")
                     result = executor(fn_name, fn_args)
-                    tool_calls_made.append({"name": fn_name, "args": fn_args, "result": result})
+                    self.logger.debug(f"Tool result ← success={result.get('success')}")
 
-                    # Append tool result message
+                    tool_calls_made.append({"name": fn_name, "args": fn_args, "result": result})
                     messages.append({
                         "role":         "tool",
                         "tool_call_id": tc.id,
                         "content":      json.dumps(result),
                     })
-                # Loop back — send updated messages to get next response
                 continue
 
-            # Unexpected finish reason — stop safely
+            self.logger.warning(f"Unexpected finish_reason: {finish_reason}")
             return message.content or "", tool_calls_made
 
     # ── Entry point ───────────────────────────────────────────────────────────
 
-    def run(self, state: ResearchState) -> ResearchState:
+    def run(self, state) -> None:
         raise NotImplementedError(f"{self.name}.run() must be implemented.")
