@@ -7,7 +7,7 @@ Uses OpenAI function calling so the model decides:
   - how many searches to run
   - when it has enough information
 
-Tool: web_search (from tools/web_search.py)
+Tool: web_search 
 
 Input:  state.topic
 Output: state.search_results  (list of {title, url, snippet})
